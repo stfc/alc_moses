@@ -1,0 +1,32 @@
+##########################################
+# Template with directives to build models 
+# compatible with the ONETEP code
+##########################################
+analysis              build_model    # (compulsory) Specification of what to do
+output_model_format   onetep         # (compulsory) Output format
+ 
+#&species                            # (compulsory)         
+#  number_species            
+#  #Label   N0   Type 
+#&end_species
+
+#&species_components                 # (compulsory)
+#&end_species_components
+
+#&input_composition                  # (compulsory) 
+#&end_input_composition
+
+#input_model_format                  # (compulsory)
+#arrangement_added_species           # (compulsory) 
+#normal_vector       c1/c2/c3        # (compulsory)
+#distance_cutoff     2.30  Angstrom  # (compulsory)
+
+#repeat_input_model  r1  r2  r3
+#add_species_from    X  Angstrom 
+#add_extra_space     X  Angstrom
+#centre_electrode    T/F 
+#both_surfaces       T/F 
+#optimise_size       T/F
+#rotate_species      T/F
+#delta_space         0.1 Angstrom
+

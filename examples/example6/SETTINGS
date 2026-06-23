@@ -1,0 +1,44 @@
+#############################################
+# Example case for building interface models  
+# Amorphous Al2O3 film on a Pt electrode 
+#############################################
+Analysis                  build_model  
+
+&species
+  number_species      3   # Number of species
+# Name   N0     Type
+  Pt     48     fixed 
+  AlO    10     variable 
+  AlO2   10     variable
+&end_species
+
+## Directive for building atomistic models
+#########################################
+&species_components
+ # Pt 
+   Pt  1  electrode 
+   Pt  Pt 1 
+  #AlO
+    AlO   2  molecule 2.1
+    Al1   Al  1 ||  O1  O  1
+  #AlO2
+    AlO2  2  molecule 2.1
+    Al2  Al 1    ||  O2  O  2
+&end_species_components
+
+Input_model_format        vasp
+
+&input_composition
+Tags     Pt   Al1  O1  Al2  O2 
+Amounts  48    0    0    0   0
+&end_input_composition
+
+arrangement_added_species  deposited   
+Normal_vector              c3
+Distance_cutoff            2.2 Angstrom
+Repeat_input_model         1  1  1
+both_surfaces              T
+centre_electrode           T
+optimise_size              T
+add_extra_space            6.0 Angstrom 
+Output_model_format        vasp 

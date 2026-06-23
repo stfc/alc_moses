@@ -1,0 +1,79 @@
+#############################################
+# Example case for building an interface model 
+# and setting files for CASTEP simulations
+#
+# Model: Pt electrode in contact with one Na+ 
+# and 20 water at each side of the slab 
+#############################################
+Analysis                  build_model  
+
+&species
+  number_species      3   # Number of species
+# Name   N0     Type
+  Pt     48     fixed 
+  H2O    20     variable 
+  Na+     1    variable
+&end_species
+
+## Directive for building atomistic models
+#########################################
+&species_components
+ # Pt 
+   Pt  1  electrode 
+   Pt  Pt 1 
+  #Water
+   H2O   2  molecule  1.2
+   Ow  O  1 ||  Hw H  2 
+  #Na+
+   Na+     1  atom
+   Na+ Na  1
+&end_species_components
+
+Input_model_format        vasp
+
+&input_composition
+Tags     Pt    Na+    Ow    Hw  
+Amounts  48     0     0     0 
+&end_input_composition
+
+arrangement_added_species  random      
+Normal_vector              c3
+Distance_cutoff            2.3 Angstrom
+Repeat_input_model         2  2  1
+both_surfaces              T
+centre_electrode           T
+optimise_size              T
+add_extra_space            6.0 Angstrom 
+Output_model_format        castep
+
+### Directives for setting simulations files
+############################################
+#&simulation_settings
+#  simulation_type  md
+#  theory_level DFT
+#
+# #DFT
+# &DFT_settings
+#   XC_level         GGA
+#   xc_version       PBE
+#   energy_cutoff    800.0  eV
+#   SCF_energy_tolerance 0.0001 eV
+#   scf_steps        200
+#   vdw  G06
+#   smearing   fermi
+#   bands 100
+#
+#  EDFT  True
+#
+#&end_DFT_settings
+#
+#  &motion_settings
+#    timestep          1.0  fs
+#    ensemble          NVT
+#    ion_steps         1000
+#    temperature       300.00 K
+#    thermostat        nose-hoover
+#    relax_time_thermostat 500.0 fs
+#  &end_motion_settings
+#
+#&end_simulation_settings

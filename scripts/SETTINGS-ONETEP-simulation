@@ -1,0 +1,173 @@
+##########################################
+# Template with directives to build models 
+# and input files for DFT simulations
+# using the ONETEP code
+##########################################
+analysis              build_model    # (compulsory) Specification of what to do
+output_model_format   onetep         # (compulsory) Output format
+ 
+#&species                            # (compulsory)         
+#  number_species            
+#  #Label   N0   Type 
+#&end_species
+
+#&species_components                 # (compulsory)
+#&end_species_components
+
+#&input_composition                  # (compulsory) 
+#&end_input_composition
+
+#input_model_format                  # (compulsory)
+#arrangement_added_species           # (compulsory) 
+#normal_vector       c1/c2/c3        # (compulsory)
+#distance_cutoff     2.30  Angstrom  # (compulsory)
+
+#repeat_input_model  r1  r2  r3
+#add_species_from    X  Angstrom 
+#add_extra_space     X  Angstrom
+#centre_electrode    T/F 
+#both_surfaces       T/F 
+#optimise_size       T/F
+#rotate_species      T/F
+#delta_space         0.1 Angstrom
+
+###########################################
+#&simulation_settings
+#  simulation_type     
+#  theory_level     DFT
+
+#  # DFT related settings (see manual for description)
+#  # ================================================
+#  &DFT_settings 
+#    XC_level 
+#    XC_version 
+#    vdw           
+#    smearing 
+#    width_smear 
+#    energy_cutoff 
+#    scf_steps 
+#    scf_energy_tolerance 
+#    bands 
+#    kpoints 
+#    EDFT        
+
+#    &ngwf        # (Compulsory only for ONETEP)
+#    &end_ngwf
+
+#    spin_polarised   
+#    total_magnetization    
+#    &magnetization
+#    &end_magnetization
+
+#    &hubbard
+#    &end_hubbard
+
+#    &pseudo_potentials
+#    &end_pseudo_potentials
+
+#     &gcdft 
+#       reference_potential 
+#       electrode_potential 
+#       electron_threshold 
+#     &end_gcdft
+#  &end_DFT_settings
+
+#  # Motion related directives
+#  # =========================
+#  &motion_settings
+#    ion_steps 
+#    change_cell_volume 
+#    change_cell_shape 
+#    #=== geometry relaxation
+#    relax_method
+#    force_tolerance 
+#    #=== Molecular dynamics
+#    timestep 
+#    ensemble 
+#    temperature 
+#    pressure 
+#    thermostat 
+#    relax_time_thermostat 
+#    relax_time_barostat 
+#    &masess 
+#      Tags
+#      Values   
+#    &end_masses
+#  &end_motion_DFT_settings
+
+#  &solvation
+#    cavity_model            
+#    dielectric_constant     
+#    dielectric_function    
+#    # Fattebert-Gygi model
+#    density_threshold 
+#    beta
+#    # Andreussi model    
+#    density_min_threshold   
+#    density_max_threshold   
+#    # Soft sphere model
+#    soft_sphere_delta       
+#    soft_sphere_scale       
+#    &soft_sphere_radii
+#    &end_soft_sphere_radii
+#    smear_ion_width
+#    # Apolar corrections          
+#    apolar_terms            
+#    sasa_definition         
+#    apolar_scaling          
+#    solvent_surface_tension 
+#    solvent_pressure
+#  &end_solvation
+ 
+#  &electrolyte
+#   &poisson_boltzmann
+#     solver String
+#     neutral_scheme       
+#     steric_potential       
+#     steric_isodensity      
+#     steric_smearing            
+#     boltzmann_temperature            
+#     capping      
+#     &solvent_radii
+#      tags 
+#      values 
+#     &end_solvent_radii
+#     &boltzmann_ions
+#      tags 
+#      charge
+#      conc 
+#      necs_shift 
+#     &end_boltzmann_ions
+#   &end_poisson_boltzmann
+#  &end_electrolyte
+
+#  # Extra directives
+#  # ================
+#  &extra_directives
+#  &end_extra_directives
+
+#&end_simulation_settings
+
+#####################################
+#&HPC_settings
+#
+#  machine_name 
+#  platform 
+#  project_name 
+#  job_name 
+#  number_mpi_tasks 
+#  number_nodes 
+#  CPUs_per_node 
+#  memory_per_CPU 
+#  parallelism_type 
+#  threads_per_process 
+#  queue 
+#  time_limit 
+#  executable 
+#  mkl 
+#  exec_options 
+
+#  &modules
+#  &end_modules
+#&end_HPC_settings
+

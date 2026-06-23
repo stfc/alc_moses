@@ -1,0 +1,132 @@
+#############################################
+# Example case for building an interface model 
+# and setting [GC-DFT + implicit solvent+
+# electrolyte] files for ONETEP simulations
+#
+# Model: Pt electrode in contact with one Na+ 
+# and 20 water at each side of the slab 
+#############################################
+Analysis                  build_model  
+
+&species
+  number_species      3   # Number of species
+# Name   N0     Type
+  Pt     48     fixed 
+  H2O    20     variable 
+  Na+     1    variable
+&end_species
+
+## Directive for building atomistic models
+#########################################
+&species_components
+ # Pt 
+   Pt  1  electrode 
+   Pt  Pt 1 
+  #Water
+   H2O   2  molecule  1.2
+   Ow  O  1 ||  Hw H  2 
+  #Na+
+   Na+     1  atom
+   Na+ Na  1
+&end_species_components
+
+Input_model_format        vasp
+
+&input_composition
+Tags     Pt    Na+    Ow    Hw  
+Amounts  48     0     0     0 
+&end_input_composition
+
+arrangement_added_species  random      
+Normal_vector              c3
+Distance_cutoff            2.3 Angstrom
+Repeat_input_model         2  2  1
+both_surfaces              T
+centre_electrode           T
+optimise_size              T
+add_extra_space            6.0 Angstrom 
+Output_model_format        onetep
+
+# Directives for setting simulations files
+###########################################
+#&simulation_settings
+#  simulation_type  md
+#  theory_level DFT
+#
+# &DFT_settings
+#   XC_level         GGA
+#   xc_version       PBE
+#   energy_cutoff    800.0  eV
+#   SCF_energy_tolerance 0.0001 eV
+#   scf_steps        200
+#   vdw   DFT-D2
+#   smearing   fermi
+#
+#  EDFT  True
+#
+#   &pseudo_potentials
+#      Pt   Pt.upf
+#      Na+  Na.upf
+#      Ow   O.upf
+#      Hw   H.upf
+#   &end_pseudo_potentials
+#
+#  &ngwf
+#    tags       Pt  Na+      Ow    Hw
+#    number      9   1       4     1
+#    radius     6.5  1.5    4.0   1.5
+#  &end_ngwf
+#
+#   &gcdft
+#     reference_potential  -4.44 eV
+#     electrode_potential   0.10 V
+#     electron_threshold    1E-6
+#   &end_gcdft
+#
+#&end_DFT_settings
+#
+#  &motion_settings
+#    timestep          1.0  fs
+#    ensemble          NVT
+#    ion_steps         1000
+#    temperature       300.00 K
+#    thermostat        nose-hoover
+#    relax_time_thermostat 500.0 fs
+#  &end_motion_settings
+#
+# &solvation
+#   dielectric_constant 80.3
+#   cavity_model self_consistent
+#   dielectric_function  andreussi
+#   density_min_threshold  0.0001
+#   density_max_threshold  0.002
+#   smear_ion_width   0.7  Bohr
+#   sasa_definition density
+#   apolar_terms  SASA
+#   solvent_surface_tension 0.076 N m-1
+#   apolar_scaling  0.02
+# &end_solvation
+#
+# &electrolyte
+#   &poisson_boltzmann
+#     solver  full
+#     BOlTzmann_temperature  300.0 K
+#     neutral_scheme         counterions_fixed
+#     steric_potential       smoothed-hard-core
+#
+#     &boltzmann_ions
+#       number_boltzmann_ions 2
+#       tags          Na    Cl
+#       charge        1     -1
+#       conc         1.0    1.0
+#       necs_shift   0.0    0.0
+#     &end_boltzmann_ions
+#
+#     &solvent_radii
+#       tags       Pt   Na+   Ow    Hw
+#       values     3.5  3.5   3.5   3.5
+#     &end_solvent_radii
+#   &end_poisson_boltzmann
+# &end_electrolyte
+
+#&end_simulation_settings
