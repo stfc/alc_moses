@@ -66,8 +66,7 @@ If the compiler is GNU-Fortran, the pre-defined compilation flags for the *Relea
 ```
 In contrast, if the selected option is *Debug*, the predefined compilation flags are: 
 ```sh
-"-g -Wextra -Wuse-without-only -frecord-gcc-switches -O0 -std=gnu -pedantic -fbacktrace -fcheck=all -finit-integer=2147483647  
--finit-real=snan -finit-logical=true -finit-character=42 -ffpe-trap=invalid,zero,overflow -fdump-core -fstack-protector-all -Wall -pipe"
+"-g -Wextra -Wuse-without-only -frecursive -frecord-gcc-switches -O0 -std=f2018 -pedantic -fbacktrace -fcheck=all -finit-integer=2147483647 -finit-real=snan -finit-logical=true -finit-character=42 -finit-derived -ffpe-trap=invalid,zero,overflow -fdump-core -fstack-protector-all -Wall -pipe"
 ```
 
 #### Intel-Fortran compiler
